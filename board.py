@@ -1,9 +1,8 @@
-#The board will be stored in an array that is a representation of the board
+#The board will be stored as an array
 class Board:
     '''
     def __init__(self):
         self.boardArray = [[0,0,0,0,0,0,0],
-                           [0,0,0,0,0,0,0],
                            [0,0,0,0,0,0,0],
                            [0,0,0,0,0,0,0],
                            [0,0,0,0,0,0,0],
@@ -30,7 +29,7 @@ class Board:
             boardStr += "]\n"
         return boardStr
     def insertPiece(self, num, column): #insert num into the column on the board, return piece inserted, return -1 if the operation was not completed
-        if(self.pieceTracker[column] >= 7):
+        if(self.pieceTracker[column] >= len(self.boardArray)-1):
             return -1
         else:
             self.boardArray[self.pieceTracker[column]-1][column] = num
@@ -49,7 +48,7 @@ class Board:
             return column
         else:
             return -1
-    def getDiagonals(self, cord, isNeg): #Returns the diagonal for a given coordinate in the direction ordained by isNeg (Top Right -> Bottom Left if false, Top Left -> Bottom Right if true)
+    def getDiagonals(self): #Returns a list of all diagonals in the board 
         pass
     def isWinningRow(self, row): #Return winner if there are 4 ones or 4 twos in a row. Otherwise, return -1
         if(len(row) < 4): #return -1 if the row (probably a diagonal) is contains less than 4 spaces, as it is impossible to have 4 in a row in less than 4 spaces... obviously...
@@ -82,7 +81,7 @@ class Board:
                 if num == 0:
                     return False
         return True
-    def isWin(self): #Returns winning player if there is a winning row, otherwise, return -1
+    def getWinner(self): #Returns winning player if there is a winning row, otherwise, return -1
         #Check all rows
         for i in range(0,len(self.boardArray)):
             winner = self.isWinningRow(self.boardArray(i))
