@@ -1,5 +1,6 @@
 #The board will be stored in an array that is a representation of the board
 class Board:
+    '''
     def __init__(self):
         self.boardArray = [[0,0,0,0,0,0,0],
                            [0,0,0,0,0,0,0],
@@ -9,21 +10,22 @@ class Board:
                            [0,0,0,0,0,0,0],
                            [0,0,0,0,0,0,0]]
         self.pieceTracker = [0,0,0,0,0,0,0]
+    '''
     def __init__(self, boardArray): #Creates a board based on an existing top-down board array
         self.boardArray = boardArray
         self.pieceTracker = [0,0,0,0,0,0,0]
-        for i in range(0, len(boardArray)-1):
+        for i in range(0, len(boardArray)):
             self.pieceTracker[i] = self.getpieceTrack(self.getColumn(i))
-    def __getpieceTrack(self, row):
-        for i in range(0, len(row)-1):
+    def getpieceTrack(self, row):
+        for i in range(0, len(row)):
             if row[i] != 0:
                 return i
-        return len(row)-1            
+        return len(row)-1          
     def __str__(self): #return the top-down representation of the board
         boardStr = ""
-        for rowNum in self.boardArray:
+        for row in self.boardArray:
             boardStr += "["
-            for num in self.getRow(rowNum):
+            for num in row:
                 boardStr += f"{num},"
             boardStr += "]\n"
         return boardStr
@@ -31,47 +33,48 @@ class Board:
         if(self.pieceTracker[column] >= 7):
             return -1
         else:
-            insertRow = self.pieceTracker[column]
-            self.boardArray[insertRow][column] = num
-            insertRow += 1
+            self.boardArray[self.pieceTracker[column]-1][column] = num
+            self.pieceTracker[column] -= 1
             return num
     def getRow(self, num): #Returns the given row of the board, -1 if num is out of range
-        if(num in range(0,len(self.boardArray)-1)):
+        if(num in range(0,len(self.boardArray))):
             return self.boardArray[num]
         else:
             return -1
     def getColumn(self, num): #Returns the given column of the board, returns -1 if num is out of range
-        if(num in range(0,len(self.boardArray)-1)):
+        if(num in range(0,len(self.boardArray))):
             column = []
-            for i in range(0,len(self.boardArray)-1):
+            for i in range(0,len(self.boardArray)):
                 column.append(self.boardArray[i][num])
             return column
         else:
             return -1
-    def getDiagonal(self, cord, isNeg): #Returns the diagonal for a given coordinate in the direction ordained by isNeg (Top Right -> Bottom Left if false, Top Left -> Bottom Right if true)
+    def getDiagonals(self, cord, isNeg): #Returns the diagonal for a given coordinate in the direction ordained by isNeg (Top Right -> Bottom Left if false, Top Left -> Bottom Right if true)
         pass
     def isWinningRow(self, row): #Return winner if there are 4 ones or 4 twos in a row. Otherwise, return -1
-        #oneWin = [1,1,1,1] in row
-        #twoWin = [2,2,2,2] in row
+        if(len(row) < 4): #return -1 if the row (probably a diagonal) is contains less than 4 spaces, as it is impossible to have 4 in a row in less than 4 spaces... obviously...
+            return -1
         consecutiveOnes = 0
         consecutiveTwos = 0
         for num in row:
+            match num:
+                case 0:
+                    consecutiveOnes = 0
+                    consecutiveTwos = 0
+                case 1:
+                    consecutiveOnes += 1
+                    consecutiveTwos = 0
+                case 2:
+                    consecutiveTwos += 1
+                    consecutiveOnes = 0   
+                case _:
+                    print("Error: invalid key in boardArray")
+                    print(self)
+                    return -1
             if consecutiveOnes >= 4:
                 return 1
             elif consecutiveTwos >= 4:
-                return 2
-            elif num == 1:
-                consecutiveOnes += 1
-                consecutiveTwos = 0
-            elif num == 2:
-                consecutiveTwos += 1
-                consecutiveOnes = 0
-            elif num == 0:
-                consecutiveOnes = 0
-                consecutiveTwos = 0
-            else:
-                print("Error: invalid key in boardArray")
-                print(self)
+                return 2  
         return -1
     def isFull(self): #Returns true if there is a 0 in the board. Otherwise, return false
         for row in self.boardArray:
@@ -81,9 +84,17 @@ class Board:
         return True
     def isWin(self): #Returns winning player if there is a winning row, otherwise, return -1
         #Check all rows
+        for i in range(0,len(self.boardArray)):
+            winner = self.isWinningRow(self.boardArray(i))
+            if winner > 0:
+                return winner
         #Check all columns
+        for i in range(0,len(self.boardArray[0])):
+            winner = self.isWinningRow(self.getColumn(i))
+            if winner > 0:
+                return winner
         #Check all diagonals
-        return False
+        return -1
     def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false
         winner = self.isWin()
         if(self.isFull() and winner != 1 and winner != 2):
