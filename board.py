@@ -12,8 +12,8 @@ class Board:
     '''
     def __init__(self, boardArray): #Creates a board based on an existing top-down board array
         self.boardArray = boardArray
-        self.pieceTracker = [0,0,0,0,0,0,0]
-        for i in range(0, len(boardArray)):
+        self.pieceTracker = [0] * len(boardArray[0])
+        for i in range(0, len(boardArray[0])):
             self.pieceTracker[i] = self.getpieceTrack(self.getColumn(i))
     def getpieceTrack(self, row):
         for i in range(0, len(row)):
@@ -41,7 +41,7 @@ class Board:
         else:
             return -1
     def getColumn(self, num): #Returns the given column of the board, returns -1 if num is out of range
-        if(num in range(0,len(self.boardArray))):
+        if(num in range(0,len(self.boardArray[0]))):
             column = []
             for i in range(0,len(self.boardArray)):
                 column.append(self.boardArray[i][num])
@@ -95,8 +95,7 @@ class Board:
         #Check all diagonals
         return -1
     def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false
-        winner = self.isWin()
-        if(self.isFull() and winner != 1 and winner != 2):
+        if(self.isFull() and self.getWinner() == -1):
             return True
         else:
             return False
