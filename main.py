@@ -29,12 +29,17 @@ with open(textFname, 'r') as inputFile:
         else:
             boardArray.append(splitLine) #append a list of numbers (A row on the board) to the board
         lineCount+=1
+gameBoard = board.Board(boardArray)
 
 def URMove(gameBoard): #Uniform Random
-    valid_moves = [col for col in gameBoard.peiceTracker if gameBoard.peiceTracker < 6]
+    valid_moves = [col for col in gameBoard.pieceTracker if gameBoard.pieceTracker < 6]
     return random.choice(valid_moves)
 
 def DLMMMove(gameBoard): #Depth-Limited MinMax
+    #Search game tree as deep as you can in a given time
+    #Evaluate fringe nodes with eval function
+    #Back up values to the root
+    #Choose best move, repeat 
     pass
 
 def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
