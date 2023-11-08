@@ -76,23 +76,24 @@ class Board:
                 return 2  
         return -1
     def isFull(self): #Returns true if there is a 0 in the board. Otherwise, return false
-        for row in self.boardArray:
-            for num in row:
-                if num == 0:
-                    return False
+        for num in self.boardArray[0]:
+            if num == 0:
+                return False
         return True
     def getWinner(self): #Returns winning player if there is a winning row, otherwise, return -1
         #Check all rows
-        for i in range(0,len(self.boardArray)):
+        for i in range(len(self.boardArray)):
             winner = self.isWinningRow(self.boardArray(i))
             if winner > 0:
                 return winner
         #Check all columns
-        for i in range(0,len(self.boardArray[0])):
+        for i in range(len(self.boardArray[0])):
             winner = self.isWinningRow(self.getColumn(i))
             if winner > 0:
                 return winner
         #Check all diagonals
+        
+
         return -1
     def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false
         if(self.isFull() and self.getWinner() == -1):
