@@ -31,15 +31,37 @@ with open(textFname, 'r') as inputFile:
         lineCount+=1
 gameBoard = board.Board(boardArray)
 
+#Moves
 def URMove(gameBoard): #Uniform Random
     valid_moves = [col for col in gameBoard.pieceTracker if gameBoard.pieceTracker < 6]
     return random.choice(valid_moves)
 
-def DLMMMove(gameBoard): #Depth-Limited MinMax
-    #Search game tree as deep as you can in a given time
+def DLMMMove(state, ply): #Depth-Limited MinMax - Returns a move
+    #Expand game tree to the depth of ply
     #Evaluate fringe nodes with eval function
-    #Back up values to the root
+    #Compare values, pass Min/Max to the root
     #Choose best move, repeat
+
+    #Return action in random.choice(valid_moves) that is highest for MinValue(a, state, ply)
+    pass
+
+def MaxValue(state, ply): #Returns a Utility Value
+    if(state.isTerminal or ply == 0):
+        return state.getUtil
+    
+    #v = -infinite
+    #for child in state.children:
+        #v = max(v,MinValue(child))
+    #return v
+    pass
+
+def MinValue(state, ply): #Returns a Utility Value
+    if(state.isTerminal or ply == 0):
+        return state.getUtil
+    #v = infinite
+    #for child in state.children:
+        #v = min(v,MaxValue(child))
+    #return v
     pass
 
 def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
@@ -47,3 +69,5 @@ def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
 
 def UCTMove(gameBoard): #Upper Confidence bound for Trees
     pass
+
+#Game Playing

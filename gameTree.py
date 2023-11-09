@@ -15,3 +15,5 @@ class Node:
         return False
     def getGameWinner(self): #Should never be called before isTerminal
         return self.winner
+    def getUtil(self):
+        return self.util
