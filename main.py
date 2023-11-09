@@ -6,7 +6,7 @@ boardArray = []
 
 #Take input file, designates algorithm, parameter, create board, execute algorithm
 if len(sys.argv) != 3:
-    print("Correct usage: PA1.py <input text file> <Search Type>")
+    print("Correct usage: main.py <input text file> <information wanted>")
     exit()
 textFname = sys.argv[1]
 
