@@ -52,29 +52,29 @@ class Board:
         pass
     def isWinningRow(self, row): #Return winner if there are 4 ones or 4 twos in a row. Otherwise, return -1
         if(len(row) < 4): #return -1 if the row (probably a diagonal) is contains less than 4 spaces, as it is impossible to have 4 in a row in less than 4 spaces... obviously...
-            return -1
-        consecutiveOnes = 0
-        consecutiveTwos = 0
+            return 0
+        consecutiveReds = 0
+        consecutiveYellows = 0
         for num in row:
             match num:
                 case 0:
-                    consecutiveOnes = 0
-                    consecutiveTwos = 0
+                    consecutiveReds = 0
+                    consecutiveYellows = 0
                 case 1:
-                    consecutiveOnes += 1
-                    consecutiveTwos = 0
-                case 2:
-                    consecutiveTwos += 1
-                    consecutiveOnes = 0   
+                    consecutiveReds = 0
+                    consecutiveYellows += 1
+                case -1:
+                    consecutiveReds += 1
+                    consecutiveYellows = 0   
                 case _:
                     print("Error: invalid key in boardArray")
                     print(self)
-                    return -1
-            if consecutiveOnes >= 4:
-                return 1
-            elif consecutiveTwos >= 4:
-                return 2  
-        return -1
+                    return 0
+            if consecutiveReds >= 4:
+                return -1
+            elif consecutiveYellows >= 4:
+                return 1 
+        return 0
     def isFull(self): #Returns true if there is a 0 in the board. Otherwise, return false
         for num in self.boardArray[0]:
             if num == 0:
@@ -92,11 +92,9 @@ class Board:
             if winner > 0:
                 return winner
         #Check all diagonals
-        
-
-        return -1
+        return 0
     def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false
-        if(self.isFull() and self.getWinner() == -1):
+        if(self.isFull()):
             return True
         else:
             return False

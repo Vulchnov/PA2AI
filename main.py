@@ -39,7 +39,7 @@ def DLMMMove(gameBoard): #Depth-Limited MinMax
     #Search game tree as deep as you can in a given time
     #Evaluate fringe nodes with eval function
     #Back up values to the root
-    #Choose best move, repeat 
+    #Choose best move, repeat
     pass
 
 def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
