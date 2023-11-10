@@ -33,7 +33,7 @@ gameBoard = board.Board(boardArray)
 
 #Moves
 def URMove(gameBoard): #Uniform Random
-    valid_moves = [col for col in gameBoard.pieceTracker if gameBoard.pieceTracker < 6]
+    valid_moves = [col for col in gameBoard.pieceTracker if col < 6]
     return random.choice(valid_moves)
 
 def DLMMMove(state, ply): #Depth-Limited MinMax - Returns a move
@@ -41,6 +41,8 @@ def DLMMMove(state, ply): #Depth-Limited MinMax - Returns a move
     #Evaluate fringe nodes with eval function
     #Compare values, pass Min/Max to the root
     #Choose best move, repeat
+    valid_moves = [col for col in state.pieceTracker if col < 6]
+
 
     #Return action in random.choice(valid_moves) that is highest for MinValue(a, state, ply)
     pass
@@ -71,3 +73,6 @@ def UCTMove(gameBoard): #Upper Confidence bound for Trees
     pass
 
 #Game Playing
+moveChosen = URMove(gameBoard)
+print(moveChosen)
+print(gameBoard.pieceTracker)

@@ -17,7 +17,7 @@ class Board:
             self.pieceTracker[i] = self.getpieceTrack(self.getColumn(i))
     def getpieceTrack(self, row):
         for i in range(0, len(row)):
-            if row[i] != 0:
+            if row[i] != 'O':
                 return i
         return len(row)-1          
     def __str__(self): #return the top-down representation of the board
@@ -55,15 +55,15 @@ class Board:
             return 0
         consecutiveReds = 0
         consecutiveYellows = 0
-        for num in row:
-            match num:
-                case 0:
+        for piece in row:
+            match piece:
+                case 'O':
                     consecutiveReds = 0
                     consecutiveYellows = 0
-                case 1:
+                case 'Y':
                     consecutiveReds = 0
                     consecutiveYellows += 1
-                case -1:
+                case 'R':
                     consecutiveReds += 1
                     consecutiveYellows = 0   
                 case _:
@@ -76,23 +76,24 @@ class Board:
                 return 1 
         return 0
     def isFull(self): #Returns true if there is a 0 in the board. Otherwise, return false
-        for num in self.boardArray[0]:
-            if num == 0:
+        for piece in self.boardArray[0]:
+            if piece == 'O':
                 return False
         return True
     def getWinner(self): #Returns winning player if there is a winning row, otherwise, return -1
         #Check all rows
         for i in range(len(self.boardArray)):
             winner = self.isWinningRow(self.boardArray(i))
-            if winner > 0:
+            if winner != 0:
                 return winner
         #Check all columns
         for i in range(len(self.boardArray[0])):
             winner = self.isWinningRow(self.getColumn(i))
-            if winner > 0:
+            if winner != 0:
                 return winner
         #Check all diagonals
         return 0
+    
     def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false
         if(self.isFull()):
             return True
