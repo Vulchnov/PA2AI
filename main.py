@@ -3,6 +3,8 @@ import sys
 import random
 import math
 import gameTree
+import mcts
+
 
 boardArray = []
 
@@ -91,7 +93,9 @@ def MinValue(state, player, ply): #Returns a Utility Value
     return v
 
 def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
-    pass
+    mct = mcts.MCTS(gameBoard, player, 1)
+    mct.search(5)
+    move = mct.best_move()
 
 def UCTMove(gameBoard): #Upper Confidence bound for Trees
     pass
@@ -101,6 +105,8 @@ def UCTMove(gameBoard): #Upper Confidence bound for Trees
 moveChosen = URMove(gameBoard)
 print(moveChosen)
 print(gameBoard.pieceTracker)
-'''
+
 gameBoard.insertPiece(player, DLMMMove(gameBoard, player, 2))
 print(gameBoard)
+'''
+print(PMCGSMove(gameBoard))
