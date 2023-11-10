@@ -1,19 +1,13 @@
-#import whatever queue we need to use for this tree 
-
 class Node:
-    def __init__(self, parent, board, util):
-        self.util = util
+    def __init__(self, parent, board):
         self.parent = parent
         self.board = board
-        self.util = util #Have Util be a property of the board?
-        self.winner = 0
-        
+        self.winner = self.board.getWinner()    
     def isTerminal(self): #Determines if the game is in a terminal state, sets the winner if so
-        self.winner = self.board.getWinner()
         if(self.board.isDraw() == True or self.winner != 0):
             return True
         return False
-    def getGameWinner(self): #Should never be called before isTerminal
+    def getGameWinner(self):
         return self.winner
     def getUtil(self):
-        return self.util
+        return self.board.getUtil()
