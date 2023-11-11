@@ -41,18 +41,12 @@ def URMove(gameBoard): #Uniform Random
     valid_moves = gameBoard.getValidMoves()
     return random.choice(valid_moves)
 
-def DLMMMove(gameBoard, player, ply): #Depth-Limited MinMax - Returns a move for a given player - NEED TO MAKE IT UNIVERSAL
-    '''
-    Expand game tree to the depth of ply
-    #Evaluate fringe nodes with eval function
-    #Compare values, pass Min/Max to the root
-    #Choose best move
-    '''
+def DLMMMove(gameBoard, player, ply): #Depth-Limited MinMax - Returns a move for a given player - NEED TO MAKE IT UNIVERSAL (Have DLMM Assume the player is always yellow? invert board every turn?)
     valid_moves = gameBoard.getValidMoves()
     print(valid_moves)
     bestMove = -1
     #Return action in random.choice(valid_moves) that is highest for MinValue(a, state, ply)
-    root = gameTree.Node(None, gameBoard)
+    root = gameTree.Node(None, gameBoard) #instantiate root node
     if (player == 'Y'):
         maxUtil = (math.inf * -1)
         for move in valid_moves:
@@ -75,10 +69,10 @@ def MaxValue(state, player, ply): #Returns a Utility Value
         print(f"Terminal State Reached, ply = {ply}, util = {state.getUtil()}, Board:\n{state.board}")
         return state.getUtil()
     v = math.inf * -1
-    valid_moves = valid_moves = gameBoard.getValidMoves()
+    valid_moves = gameBoard.getValidMoves()
     for move in valid_moves:
-        print(f"Placing piece in row: {move}")
-        v = max(v,MinValue(gameTree.Node(state, state.board.exploreMove(player, move)), player, ply-1))
+        print(f"Exploring move: {move}")
+        v = max(v,MinValue(gameTree.Node(state, state.board.exploreMove(player, move)), player, ply-1)) #Replace player with 'Y'?
     return v
 
 def MinValue(state, player, ply): #Returns a Utility Value
@@ -86,10 +80,10 @@ def MinValue(state, player, ply): #Returns a Utility Value
         print(f"Terminal State Reached, ply = {ply}, util = {state.getUtil()}, Board:\n{state.board}")
         return state.getUtil()
     v = math.inf
-    valid_moves = valid_moves = gameBoard.getValidMoves()
+    valid_moves = gameBoard.getValidMoves()
     for move in valid_moves:
-        print(f"Placing piece in row: {move}")
-        v = min(v,MaxValue(gameTree.Node(state, state.board.exploreMove(player, move)), player, ply-1))
+        print(f"Exploring move: {move}")
+        v = min(v,MaxValue(gameTree.Node(state, state.board.exploreMove(player, move)), player, ply-1)) #Replace player with 'R'?
     return v
 
 def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
@@ -105,8 +99,8 @@ def UCTMove(gameBoard): #Upper Confidence bound for Trees
 moveChosen = URMove(gameBoard)
 print(moveChosen)
 print(gameBoard.pieceTracker)
-
+'''
 gameBoard.insertPiece(player, DLMMMove(gameBoard, player, 2))
 print(gameBoard)
-'''
-print(PMCGSMove(gameBoard))
+
+#print(PMCGSMove(gameBoard))

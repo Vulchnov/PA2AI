@@ -20,7 +20,7 @@ class Board:
         self.util = 0
         self.getWinner() #update Util
 
-    def updatePieceTrack(self, column): #Updates the piece tracker for a given column
+    def updatePieceTrack(self, column): #Updates the piece tracker for a given column - should only be called upon creation of the board
         for i in range(0, len(column)):
             if column[i] != 'O':
                 return i
@@ -55,6 +55,16 @@ class Board:
         exploreBoard.insertPiece(player,column)
         return exploreBoard
     
+    def inverse(self): #Return the board with every space inverted
+        inverseBoard = copy.deepcopy(self)
+        for i in range(len(inverseBoard.boardArray)):
+            for j in range(len(inverseBoard.boardArray[i])):
+                if(inverseBoard.boardArray[i][j] == 'R'):
+                    inverseBoard.boardArray[i][j] = 'Y'
+                elif(inverseBoard.boardArray[i][j] == 'Y'):
+                    inverseBoard.boardArray[i][j] = 'R'
+        return inverseBoard
+
     def getRow(self, num): #Returns the given row of the board, -1 if num is out of range
         if(num in range(0,len(self.boardArray))):
             return self.boardArray[num]
@@ -70,11 +80,11 @@ class Board:
         else:
             return -1
         
-    def getDiagonals(self): #Returns a list of all diagonals in the board 
+    def getDiagonals(self): #Returns a list of all diagonals in the board - Ill do this eventually
         pass
 
-    def isWinningRow(self, row): #Return winner if there are 4 ones or 4 twos in a row. Otherwise, return -1
-        if(len(row) < 4): #return -1 if the row (probably a diagonal) is contains less than 4 spaces, as it is impossible to have 4 in a row in less than 4 spaces... obviously...
+    def isWinningRow(self, row): #Return winner if there are 4 ones or 4 twos in a row. Otherwise, return 0
+        if(len(row) < 4): #return 0 if the row (probably a diagonal) is contains less than 4 spaces, as it is impossible to have 4 in a row in less than 4 spaces... obviously...
             return 0
         consecutiveReds = 0
         consecutiveYellows = 0
@@ -107,7 +117,7 @@ class Board:
                 return False
         return True
     
-    def getWinner(self): #Returns winning player if there is a winning row, otherwise, return -1, iterates through entire board, always
+    def getWinner(self): #Returns winning player and sets util to infinity or -infinity depending on the result. If there is a winning row, otherwise, return 0, iterates through entire board, always
         self.util = 0 #Reset util, it will be updated with each call of self.getWinningRow()
         #Check all rows
         for i in range(len(self.boardArray)):
@@ -149,7 +159,7 @@ class Board:
         '''
         return 0
     
-    def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false
+    def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false (possibly see about removing self.getWinner?)
         if(self.isFull() and self.getWinner != 0):
             return True
         else:
