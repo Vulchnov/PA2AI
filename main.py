@@ -4,6 +4,7 @@ import random
 import math
 import gameTree
 import mcts
+import UCT
 
 
 boardArray = []
@@ -90,9 +91,13 @@ def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
     mct = mcts.MCTS(gameBoard, player, 1)
     mct.search(5)
     move = mct.best_move()
+    return move
 
 def UCTMove(gameBoard): #Upper Confidence bound for Trees
-    pass
+    uctT = UCT.UCT(gameBoard, player, 1)
+    uctT.search(5)
+    move = uctT.best_move()
+    return move
 
 #Game Playing
 '''
