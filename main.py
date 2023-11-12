@@ -72,7 +72,7 @@ def MaxValue(state, player, ply): #Returns a Utility Value
     valid_moves = gameBoard.getValidMoves()
     for move in valid_moves:
         print(f"Exploring move: {move}")
-        v = max(v,MinValue(gameTree.Node(state, state.board.exploreMove(player, move)), player, ply-1)) #Replace player with 'Y'?
+        v = max(v,MinValue(gameTree.Node(state, state.board.exploreMove('Y', move)), 'Y', ply-1)) #Replace player with 'Y'?
     return v
 
 def MinValue(state, player, ply): #Returns a Utility Value
@@ -83,7 +83,7 @@ def MinValue(state, player, ply): #Returns a Utility Value
     valid_moves = gameBoard.getValidMoves()
     for move in valid_moves:
         print(f"Exploring move: {move}")
-        v = min(v,MaxValue(gameTree.Node(state, state.board.exploreMove(player, move)), player, ply-1)) #Replace player with 'R'?
+        v = min(v,MaxValue(gameTree.Node(state, state.board.exploreMove('R', move)), 'R', ply-1)) #Replace player with 'R'?
     return v
 
 def PMCGSMove(gameBoard): #Pure Monte Carlo Game Search
@@ -104,3 +104,4 @@ gameBoard.insertPiece(player, DLMMMove(gameBoard, player, 2))
 print(gameBoard)
 
 #print(PMCGSMove(gameBoard))
+#Tournament
