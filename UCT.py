@@ -22,7 +22,7 @@ class Node:
         else:
             return self.Q/self.N + explore * math.sqrt(math.log(self.parent.N)/self.N)
         
-class MCTS:
+class UCT:
     def __init__(self, state, player, explore):
         self.root_state = deepcopy(state)
         self.root = Node(None, None, player)
@@ -37,9 +37,11 @@ class MCTS:
         state = deepcopy(self.root_state)
         
         while len(node.children) != 0:
-            childs = [n for n in node.children.values()]
-            
-            node = random.choice(childs)
+            children = node.children.values()
+            max_value = max(children, key=lambda n: n.value(self.explore)).value(self.explore)
+            max_nodes = [n for n in children if n.value(self.explore) == max_value]
+
+            node = random.choice(max_nodes)
             state.insertPiece(node.player, node.move)
 
             if node.N == 0:
