@@ -80,9 +80,23 @@ class Board:
         else:
             return -1
         
-    def getDiagonals(self): #Returns a list of all diagonals in the board - Ill do this eventually
-        pass
+    def getDiagonals(self): #Returns a list of all diagonals in the board - Ill do this eventually4
+        diag = []
+        for row in range(3):
+            for col in range(4):
+                tmp = []
+                tmp += [self.boardArray[row + i][col + i] for i in range(4)]
+                diag.append(tmp)
 
+        # Check diagonal (up-right)
+        for row in range(3, 6):
+            for col in range(4):
+                tmp = []
+                tmp += [self.boardArray[row - i][col + i] for i in range(4)]
+                diag.append(tmp)   
+
+        return diag
+    
     def isWinningRow(self, row): #Return winner if there are 4 ones or 4 twos in a row. Otherwise, return 0
         if(len(row) < 4): #return 0 if the row (probably a diagonal) is contains less than 4 spaces, as it is impossible to have 4 in a row in less than 4 spaces... obviously...
             return 0
@@ -144,9 +158,8 @@ class Board:
                         print('error, invalid return for self.isWinningRow')
                 return prospect
         #Check all diagonals
-        '''
-        for valid diagonal in board:
-            prospect = self.isWinningRow(diagonal)
+        for diag in self.getDiagonals():
+            prospect = self.isWinningRow(diag)
             if prospect  != 0:
                 match prospect:
                     case -1:
@@ -156,9 +169,9 @@ class Board:
                     case _:
                         print('error, invalid return for self.isWinningRow')
                 return prospect
-        '''
+            
         return 0
-    
+
     def isDraw(self): #Returns true if the board is full and there are no winners. Otherwise, return false (possibly see about removing self.getWinner?)
         if(self.isFull() and self.getWinner != 0):
             return True

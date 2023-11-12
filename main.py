@@ -35,7 +35,6 @@ with open(textFname, 'r') as inputFile:
             boardArray.append(splitLine) #append a list of numbers (A row on the board) to the board
         lineCount+=1
 gameBoard = board.Board(boardArray)
-print(gameBoard)
 
 #Moves
 def URMove(gameBoard): #Uniform Random

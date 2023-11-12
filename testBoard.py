@@ -9,6 +9,7 @@ gameBoard = board.Board([['O','O','O','O','Y','O','O'],
 
 gameBoard.insertPiece('Y', 6)
 print(gameBoard)
+'''
 print(gameBoard.pieceTracker)
 print(gameBoard.getColumn(7))
 print(gameBoard.getColumn(5))
@@ -18,4 +19,6 @@ print(gameBoard.getWinner())
 print(gameBoard.util)
 print(gameBoard.getValidMoves())
 print(gameBoard)
-print(gameBoard.inverse())
+#print(gameBoard.inverse())
+'''
+print(gameBoard.getDiagonals())
