@@ -122,7 +122,7 @@ for i in range(100):
     while(gameBoard.gameOver() == False):
         match currPlayer:
             case 'Y':
-                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 5))
                 #print(gameBoard)
                 currPlayer = 'R'
             case 'R':
