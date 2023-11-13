@@ -86,15 +86,15 @@ def MinValue(state, ply): #Returns a Utility Value
         v = min(v,MaxValue(gameTree.Node(state, state.board.exploreMove('R', move)), ply-1)) #Replace player with 'R'?
     return v
 
-def PMCGSMove(gameBoard, player): #Pure Monte Carlo Game Search
+def PMCGSMove(gameBoard, player, dur): #Pure Monte Carlo Game Search
     mct = mcts.MCTS(gameBoard, player, 1)
-    mct.search(5)
+    mct.search(dur)
     move = mct.best_move()
     return move
 
-def UCTMove(gameBoard, player): #Upper Confidence bound for Trees
+def UCTMove(gameBoard, player, dur): #Upper Confidence bound for Trees
     uctT = UCT.UCT(gameBoard, player, 1)
-    uctT.search(5)
+    uctT.search(dur)
     move = uctT.best_move()
     return move
 
