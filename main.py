@@ -108,23 +108,38 @@ print(gameBoard.pieceTracker)
 #print(gameBoard)
 
 #Tournament
-gameBoard = board.Board([['O','O','O','O','O','O','O'],
-                         ['O','O','O','O','O','O','O'],
-                         ['O','O','O','O','O','O','O'],
-                         ['O','O','O','O','O','O','O'],
-                         ['O','O','O','O','O','O','O'],
-                         ['O','O','O','O','O','O','O']])
-currPlayer = 'Y'
-while(gameBoard.gameOver() == False):
-    match currPlayer:
-        case 'Y':
-            gameBoard.insertPiece('Y', DLMMMove(gameBoard, 'Y', 5))
-            print(gameBoard)
-            currPlayer = 'R'
-        case 'R':
-            gameBoard.insertPiece('R', DLMMMove(gameBoard, 'R', 5))
-            print(gameBoard)
-            currPlayer = 'Y'
-        case _:
-            print("Error, shits fucked, yo")
-print(f"Game End: \n{gameBoard}\nWinner: {gameBoard.getWinner()}")
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+    print(i)
+
+print("Yellow wins: "+str(YWin))
+print("Red wins: "+str(RWin))
+print("Ties: "+str(Tie))
