@@ -98,16 +98,8 @@ def UCTMove(gameBoard, player, dur): #Upper Confidence bound for Trees
     move = uctT.best_move()
     return move
 
-#Game Playing
-'''
-moveChosen = URMove(gameBoard)
-print(moveChosen)
-print(gameBoard.pieceTracker)
-'''
-#gameBoard.insertPiece(player, DLMMMove(gameBoard, player, 5))
-#print(gameBoard)
 
-#Tournament
+#Tournaments
 YWin = 0
 RWin = 0
 Tie = 0
@@ -122,7 +114,7 @@ for i in range(100):
     while(gameBoard.gameOver() == False):
         match currPlayer:
             case 'Y':
-                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 5))
+                gameBoard.insertPiece('Y', URMove(gameBoard))
                 #print(gameBoard)
                 currPlayer = 'R'
             case 'R':
@@ -138,8 +130,1197 @@ for i in range(100):
             RWin += 1
         case 0:
             Tie += 1
-    print(i)
+
+print("Y UR wins: "+str(YWin))
+print("R UR wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UR wins: "+str(YWin))
+print("R DLMM wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y DLMM wins: "+str(YWin))
+print("R UR wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(500) wins: "+str(YWin))
+print("R UR wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UR wins: "+str(YWin))
+print("R PMCGS(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(10000) wins: "+str(YWin))
+print("R UR wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UR wins: "+str(YWin))
+print("R PMCGS(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(500) wins: "+str(YWin))
+print("R UR wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UR wins: "+str(YWin))
+print("R UCT(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(10000) wins: "+str(YWin))
+print("R UR wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', URMove(gameBoard))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UR wins: "+str(YWin))
+print("R UCT(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y DLMM wins: "+str(YWin))
+print("R DLMM wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y DLMM wins: "+str(YWin))
+print("R PMCGS(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(500) wins: "+str(YWin))
+print("R DLMM wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y DLMM wins: "+str(YWin))
+print("R PMCGS(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(10000) wins: "+str(YWin))
+print("R DLMM wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y DLMM wins: "+str(YWin))
+print("R UCT(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(500) wins: "+str(YWin))
+print("R DLMM wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y DLMM wins: "+str(YWin))
+print("R UCT(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', DLMMMove(gameBoard, currPlayer, 5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(10000) wins: "+str(YWin))
+print("R DLMM wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(500) wins: "+str(YWin))
+print("R PMCGS(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(500) wins: "+str(YWin))
+print("R PMCGS(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(10000) wins: "+str(YWin))
+print("R PMCGS(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(500) wins: "+str(YWin))
+print("R UCT(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(500) wins: "+str(YWin))
+print("R PMCGS(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(500) wins: "+str(YWin))
+print("R UCT(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(10000) wins: "+str(YWin))
+print("R PMCGS(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(10000) wins: "+str(YWin))
+print("R PMCGS(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(10000) wins: "+str(YWin))
+print("R UCT(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(500) wins: "+str(YWin))
+print("R PMCGS(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y PMCGS(10000) wins: "+str(YWin))
+print("R UCT(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', PMCGSMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(10000) wins: "+str(YWin))
+print("R PMCGS(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
 
 print("Yellow wins: "+str(YWin))
 print("Red wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(500) wins: "+str(YWin))
+print("R UCT(10000) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 0.5))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(10000) wins: "+str(YWin))
+print("R UCT(500) wins: "+str(RWin))
+print("Ties: "+str(Tie))
+YWin = 0
+RWin = 0
+Tie = 0
+for i in range(100):
+    gameBoard = board.Board([['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O'],
+                            ['O','O','O','O','O','O','O']])
+    currPlayer = 'Y'
+    while(gameBoard.gameOver() == False):
+        match currPlayer:
+            case 'Y':
+                gameBoard.insertPiece('Y', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'R'
+            case 'R':
+                gameBoard.insertPiece('R', UCTMove(gameBoard, currPlayer, 10))
+                #print(gameBoard)
+                currPlayer = 'Y'
+            case _:
+                print("Error, shits fucked, yo")
+    match gameBoard.getWinner():
+        case 1:
+            YWin += 1 
+        case -1:
+            RWin += 1
+        case 0:
+            Tie += 1
+
+print("Y UCT(10000) wins: "+str(YWin))
+print("R UCT(10000) wins: "+str(RWin))
 print("Ties: "+str(Tie))
