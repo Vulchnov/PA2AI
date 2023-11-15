@@ -23,11 +23,12 @@ class Node:
             return self.Q/self.N + explore * math.sqrt(math.log(self.parent.N)/self.N)
         
 class MCTS:
-    def __init__(self, state, player, explore):
+    def __init__(self, state, player, explore, mode):
         self.root_state = deepcopy(state)
         self.root = Node(None, None, player)
         self.player = player
         self.explore = explore
+        self.mode = mode
         self.run_time = 0
         self.node_count = 0
         self.num_rollouts = 0
@@ -38,8 +39,15 @@ class MCTS:
         
         while len(node.children) != 0:
             childs = [n for n in node.children.values()]
+            if(self.mode == 2):
+                print("wi: " + str(node.Q))
+                print("ni: "+ str(node.N))
+
             
             node = random.choice(childs)
+            if(self.mode == 2):
+                print("Move Selected: " + str(node.move))
+                print()
             state.insertPiece(node.player, node.move)
 
             if node.N == 0:
@@ -70,19 +78,38 @@ class MCTS:
         else:
             opPly = 'R'
         while not state.gameOver():
-            state.insertPiece(ply, random.choice(state.getValidMoves()))
+            moved = random.choice(state.getValidMoves())
+            if(self.mode == 2):
+                print("Move Selected: "+ str(moved))
+            state.insertPiece(ply, moved)
             if state.gameOver():
                 break
-            state.insertPiece(opPly, random.choice(state.getValidMoves()))
+            moved = random.choice(state.getValidMoves())
+            if(self.mode == 2):
+                print("Move Selected: "+ str(moved))
+            state.insertPiece(opPly, moved)
 
+        if(self.mode == 2):
+            print("TERMINAL NODE VALUE "+ str(state.getWinner()))
+            print()
         return state
     
     def back_propagate(self, node, turn, outcome):
         reward = 0 if outcome.getWinner() == turn else 1
+        if(self.mode == 2):
+            print("Updated Values:")
+            print("wi " + str(reward))
+            print("ni 1")
+            print()
 
         while node is not None:
             node.N +=1
             node.Q += reward
+            if(self.mode == 2):
+                print("Updated Values:")
+                print("wi "+ str(node.N))
+                print("ni "+ str(node.Q))
+                print()
             node = node.parent
             if outcome.isDraw():
                 reward = 0
@@ -91,7 +118,6 @@ class MCTS:
 
     def search(self, time_limit: int):
         start_time = time.process_time()
-
         num_rollouts = 0
         while time.process_time()-start_time<time_limit:
             node, state = self.select_node()
@@ -106,6 +132,9 @@ class MCTS:
         run_time = time.process_time()-start_time
         self.run_time=run_time
         self.num_rollouts=num_rollouts
+        if(self.mode > 0):
+            for child in self.root.children.values():
+                print("Column " + str(child.move+1) + ": " + str(round(child.Q/child.N, 2)))
 
     def best_move(self):
         if self.root_state.gameOver():
@@ -115,6 +144,8 @@ class MCTS:
         max_nodes = [n for n in self.root.children.values() if n.N ==max_value]
         best_child = random.choice(max_nodes)
 
+        if(self.mode < 0):
+            print("FINAL Move selectd "+ str(best_child.move))
         return best_child.move
     
     def move(self, move):
