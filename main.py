@@ -52,12 +52,14 @@ def DLMMMove(gameBoard, player, ply): #Depth-Limited MinMax - Returns a move for
     #print(valid_moves)
     bestMove = -1
     #Return action in random.choice(valid_moves) that is highest for MinValue(a, state, ply)
+    moves = ''
     root = gameTree.Node(None, gameBoard) #instantiate root node
     if (player == 'Y'):
         maxUtil = (math.inf * -1)
         for move in valid_moves:
             #print(f"Placing piece in row: {move}")
             minVal = MinValue(gameTree.Node(root, root.board.exploreMove(player, move)), ply-1)
+            if(mode != 0): moves += (f'Column {move}: {minVal}\n') #Print for Brief/Verbose
             if (minVal > maxUtil):
                 bestMove = move
     elif(player == 'R'):
@@ -65,9 +67,10 @@ def DLMMMove(gameBoard, player, ply): #Depth-Limited MinMax - Returns a move for
         for move in valid_moves:
             #print(f"Placing piece in row: {move}")
             minVal = MaxValue(gameTree.Node(root, root.board.exploreMove(player, move)), ply-1)
+            if(mode != 0): moves += (f'Column {move}: {minVal}\n') #Print for Brief/Verbose
             if (minVal < maxUtil):
                 bestMove = move
-    #print(f"Move Selected, Column: {bestMove}")
+    print(f"{moves}FINAL Move selected: {bestMove}")
     return bestMove
 
 def MaxValue(state, ply): #Returns a Utility Value
