@@ -112,8 +112,10 @@ match algorithm:
     case "DLMM":
         print(DLMMMove(gameBoard, player, param))
     case "PMCGS":
+        param = param/1000
         PMCGSMove(gameBoard, player, param, mode)
     case "UCT":
+        param = param/1000
         UCTMove(gameBoard, player, param, mode)
     case _:
         print("Error reading file")
