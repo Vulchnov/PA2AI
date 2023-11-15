@@ -105,5 +105,15 @@ def UCTMove(gameBoard, player, dur, mode): #Upper Confidence bound for Trees
     return move
 
 
-#Tournaments
-UCTMove(gameBoard, player, 0.5, 2)
+#Running
+match algorithm:
+    case "UR":
+        print(URMove(gameBoard))
+    case "DLMM":
+        print(DLMMMove(gameBoard, player, param))
+    case "PMCGS":
+        PMCGSMove(gameBoard, player, param, mode)
+    case "UCT":
+        UCTMove(gameBoard, player, param, mode)
+    case _:
+        print("Error reading file")
